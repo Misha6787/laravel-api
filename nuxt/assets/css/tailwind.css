@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .menu__item {
+        @apply dark:text-gray-50 text-xl text-gray-50 p-4 hover:scale-125 transition-transform
+    }
+    .container {
+        @apply max-w-sm sm:max-w-xl md:max-w-2xl xl:max-w-6xl 2xl:max-w-7xl mx-auto
+    }
+    .breadcrumbs__item {
+        @apply [&:not(:last-child)]:mr-2 [&:not(:last-child)]:after:content-['/'] [&:not(:last-child)]:after:ml-2 text-sm hover:opacity-75 transition-opacity
+    }
+
+    /* Components */
+
+    .form__item {
+        @apply relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 sm:text-sm focus:z-10 focus:border-blue-400 focus:outline-none focus:ring-blue-400
+    }
+}
