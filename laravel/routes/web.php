@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Auth::routes();
+
 //Route::get('/setup', function () {
 //    $credentials = [
 //        'email' => 'admin@admin.com',

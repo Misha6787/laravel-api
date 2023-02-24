@@ -74,7 +74,6 @@
             </span>
             Зарегестрироваться
           </button>
-          <button class="group relative flex w-full justify-center rounded-md border border-transparent bg-blue-400 py-2 px-4 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus:ring-1 focus:ring--blue-400" type="button" @click="checkPass">Check</button>
         </div>
       </form>
     </div>
@@ -96,53 +95,37 @@ let inputPassword = ref();
 
 const submitHandler = async () => {
 
-  let data = JSON.stringify({
-    'name': inputName.value,
-    'email': inputEmail.value,
-    'password': inputPassword.value
-  });
-  await axios.post(config.API_BASE_URL + 'register',
-    data,
-    {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    }
-  })
-    .then(responce => console.log('Done', responce.data))
-    .catch(responce => {
-      console.log(responce);
-    })
-}
-const checkPass = () => {
-  // let pass = 123456;
-
-  // toast.success("Проверка прошла успешна!", {
-  //   autoClose: 1000,
-  // }); // ToastOptions
-
-  useNuxtApp().$toast.success(
-  'test', {
-    autoClose: 2000,
-  });
-
-  let data = JSON.stringify({
-    'email': 'test2@gail.ee',
-    'password': '123456'
-  });
-
-  axios.post(config.API_BASE_URL + 'login',
-      data,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        }
-      }
-  )
-      .then(responce => console.log(responce));
-
-
+  // let data = JSON.stringify({
+  //   'name': inputName.value,
+  //   'email': inputEmail.value,
+  //   'password': inputPassword.value
+  // });
+  //
+  // await axios.post(config.API_BASE_URL + 'register',
+  //   data,
+  //   {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  //   }
+  // })
+  //   .then(responce => {
+  //     console.log(responce)
+  //     useNuxtApp().$toast.success(
+  //       'Регистрация прошла успешно!',
+  //         {
+  //           autoClose: 2000,
+  //         }
+  //     );
+  //   })
+  //   .catch(responce => {
+  //     useNuxtApp().$toast.error(
+  //         'Введите корректные данные!',
+  //         {
+  //           autoClose: 2000,
+  //         }
+  //     );
+  //   })
 }
 </script>
 
