@@ -15,12 +15,18 @@
 <script lang="ts" setup>
   import Breadcrumbs from "~/components/Breadcrumbs";
   import Navigation from "~/components/Navigation";
+  const userStore = useUserStore();
 
   useHead({
     bodyAttrs: {
       class: 'dark:text-gray-50 dark:bg-gray-900 bg-gray-50 max-w-full'
     },
   })
+
+  // onMounted(() => {
+  //   userStore.currentUser = localStorage.getItem('user') != null ? JSON.parse(localStorage.getItem('user')) : {user: null}
+  //   console.log(userStore.currentUser)
+  // })
 
   const route = useRoute(); // рут с информацией со страницами
   const router = useRouter(); // Методы для работы с рутами

@@ -78,9 +78,7 @@ const config = useRuntimeConfig();
 let inputEmail = ref();
 let inputPassword = ref();
 
-const { $sanctumAuth } = useNuxtApp()
 const router = useRouter()
-const errors = ref()
 const userStore = useUserStore();
 
 // function test () {
@@ -99,10 +97,8 @@ async function submitHandler () {
 
   axios.get(config.public.base + 'sanctum/csrf-cookie', {withCredentials: true})
       .then(res => {
-        console.log(res);
         userStore.actionUserLogin(data)
             .then(mes => {
-              console.log(userStore.currentUser)
               useNuxtApp().$toast.success(
                   mes, {
                   autoClose: 2000,

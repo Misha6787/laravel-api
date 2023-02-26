@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         }
     },
 
-    ssr: false,
+    // ssr: false,
 
     runtimeConfig: {
         public: {
@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/color-mode',
+        '@vueuse/nuxt',
         '@pinia/nuxt'
     ],
 
@@ -40,6 +41,15 @@ export default defineNuxtConfig({
         autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
 
+    plugins: [
+        '~/plugins/vue3-toastify'
+    ],
+
+    colorMode: {
+        classSuffix: '' // Удаляю приписку -mode
+    },
+
+    // конфиги tailwindcss
     tailwindcss: {
         cssPath: '~/assets/css/tailwind.css',
         configPath: 'tailwind.config.js',

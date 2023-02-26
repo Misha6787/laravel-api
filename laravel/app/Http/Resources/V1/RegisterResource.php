@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RegisterResource extends JsonResource
+class RegisterResource extends JsonResource implements \Illuminate\Contracts\Auth\Authenticatable
 {
     /**
      * Transform the resource into an array.

@@ -5,13 +5,12 @@
       <li class="menu__item"><NuxtLink to="/about">О нас</NuxtLink></li>
       <li class="menu__item"><NuxtLink to="/posts/">Посты</NuxtLink></li>
 
-      <li class="menu__item"><NuxtLink to="/user/login">Login</NuxtLink></li>
-      <li class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
+      <li v-if="!userStore.currentUser.user" class="menu__item"><NuxtLink to="/user/login">Login</NuxtLink></li>
+      <li v-if="!userStore.currentUser.user" class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
 
       <li v-if="userStore.currentUser.user">{{ userStore.currentUser.user.name }}</li>
 
-<!--      <li>{{ $colorMode.value }}</li>-->
-<!--      <li>{{ $colorMode.preference }}</li>-->
+      <li v-if="userStore.currentUser.user"><button>Выйти</button></li>
 
       <span class="block p-4" @click="toggleColorTheme()">
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -35,29 +34,17 @@
 <script setup>
   const userStore = useUserStore();
 
-  // const { user, loggedIn } = useState('auth').value
-  // document.querySelector('html').className = 'dark';
+  // console.log(userStore.currentUser)
+  // let currentUser = ref({})
+  //
+  // onBeforeMount(() => {
+  //   currentUser.value = userStore.currentUser;
+  //
+  //   console.log('done', currentUser.value)
+  // })
 
-  // let mode = 'dark';
   const toggleColorTheme = () => {
-    // console.log(useColorMode().preference);
-    // useColorMode().preference = useColorMode().preference === 'light' ? 'dark' : 'light'
-
-    // console.log(localStorage['nuxt-color-mode']);
-
-    if (useColorMode().preference === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-
     useColorMode().preference = useColorMode().preference === 'light' ? 'dark' : 'light';
-
-    // let htmlMode = document.querySelector('html').className === 'light' ? 'dark' : 'light';
-    //
-    // document.querySelector('html').className = htmlMode;
-    // mode = htmlMode;
-
   }
 </script>
 

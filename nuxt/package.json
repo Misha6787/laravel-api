@@ -10,6 +10,9 @@
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.4.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.0.0",
+    "@vueuse/core": "^9.13.0",
+    "@vueuse/nuxt": "^9.13.0",
     "nuxt": "^3.2.2"
   },
   "dependencies": {
@@ -18,6 +21,10 @@
     "axios": "^1.3.4",
     "nuxt-sanctum-auth": "^0.3.1",
     "pinia": "^2.0.32",
+    "pinia-plugin-persistedstate": "^3.1.0",
+    "process": "^0.11.10",
+    "quasar": "^2.11.6",
+    "universal-cookie": "^4.0.4",
     "vue3-toastify": "^0.1.0"
   }
 }

@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-  import getTitle from "~/composables/getTitle";
 
   useHead({
     title: 'Main Page',
@@ -12,12 +11,8 @@
     ]
   })
 
+
   // definePageMeta({
   //   title: 'Главная',
   // });
-
-
-
-
-
 </script>
