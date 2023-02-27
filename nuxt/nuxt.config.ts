@@ -3,8 +3,8 @@
 import * as process from "process";
 
 export default defineNuxtConfig({
-    webpack: undefined,
-    theme: "",
+    // webpack: undefined,
+    // Конфиги мета данных в head
     app: {
         head: {
             charset: 'utf-8',
@@ -17,8 +17,7 @@ export default defineNuxtConfig({
         }
     },
 
-    // ssr: false,
-
+    // Локальные переменные, или же конфиги
     runtimeConfig: {
         public: {
             base: process.env.BASE_URL,
@@ -37,16 +36,21 @@ export default defineNuxtConfig({
         dirs: ['./stores'],
     },
 
+    // Конфиги pinia
     pinia: {
+        // Передаваемые переменные, которые можно использовать в компонентах pinia
         autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
 
+    // Обьявление плагинов
     plugins: [
         '~/plugins/vue3-toastify'
     ],
 
+    // Конфиги тем в @nuxtjs/color-mode
     colorMode: {
-        classSuffix: '' // Удаляю приписку -mode
+        // Удаляю приписку -mode
+        classSuffix: ''
     },
 
     // конфиги tailwindcss

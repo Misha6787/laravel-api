@@ -20,25 +20,25 @@ const useUserStore = defineStore('user', {
             return await new Promise((resolve, reject) => {
                 axios
                     .post(useRuntimeConfig().public.baseApi + 'login', data)
-                    .then((response) => {
-                        let date_end = new Date();
-                        let item = response.data;
-                        item.date_end = date_end.setSeconds(date_end.getSeconds() + Number(item.expires_in));
+                        .then((response) => {
+                            let date_end = new Date();
+                            let item = response.data;
+                            item.date_end = date_end.setSeconds(date_end.getSeconds() + Number(item.expires_in));
 
-                        const userCookie = useCookie('user');
-                        userCookie.value = JSON.stringify(item);
+                            const userCookie = useCookie('user');
+                            userCookie.value = JSON.stringify(item);
 
-                        this.currentUser = item
-                        resolve('notify.success.login');
-                    })
-                    .catch((error) => {
-                        const userCookie = useCookie('user');
-                        userCookie.value = null;
+                            this.currentUser = item
+                            resolve('notify.success.login');
+                        })
+                        .catch((error) => {
+                            const userCookie = useCookie('user');
+                            userCookie.value = null;
 
-                        // this.error = error;
-                        this.currentUser = null;
-                        reject('notify.error.login');
-                    });
+                            // this.error = error;
+                            this.currentUser = null;
+                            reject('notify.error.login');
+                        });
             });
         },
         async actionUserRegister(data){
@@ -71,29 +71,20 @@ const useUserStore = defineStore('user', {
                 axios
                     .post(useRuntimeConfig().public.baseApi + 'logout', {}, {
                         headers: {
-                            //'Content-Type': 'application/x-www-form-urlencoded',
                             'Accept': 'application/json',
                             'Authorization': `${this.getCurrentUser.token_type} ${this.getCurrentUser.token}`
                         }
                     })
                     .then((res) => {
-                        console.log(res);
-
                         const userCookie = useCookie('user');
                         userCookie.value = null;
 
                         this.currentUser = null;
 
                         resolve('notify.success.logout');
-                        // this.currentUser = null;
-                        // localStorage.removeItem('user')
                     })
                     .catch(error => {
-                        // console.log(`${this.getCurrentUser.token_type} ${this.getCurrentUser.token}`)
                         reject('notify.error.logout');
-                        // console.log(error);
-                        // localStorage.removeItem('user');
-                        // this.currentUser = {user: null};
                     });
             });
         },
@@ -115,23 +106,6 @@ const useUserStore = defineStore('user', {
         //             });
         //     });
         // },
-        // async actionTest(){
-        //     axios
-        //         .get(process.env.API_BASE_URL + '/super',
-        //         {
-        //             headers: {
-        //                 //'Content-Type': 'application/x-www-form-urlencoded',
-        //                 'Accept': 'application/json',
-        //                 'Authorization': `${this.getCurrentUser.token_type} ${this.getCurrentUser.token}`
-        //             }
-        //         })
-        //         .then(res => {
-        //             console.log('Success middleWare laravel ' + res);
-        //         })
-        //         .catch(err => {
-        //             console.log('Bad middleWare laravel ' + err)
-        //         })
-        // }
     },
 
 })

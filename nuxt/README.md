@@ -1,42 +1,11 @@
-# Nuxt 3 Minimal Starter
+Что нужно сделать
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+1. Страницу аккаунта
+2. Middleware к страницам
+3. Разобраться с тем как добавлять и где хранить картинки
+4. Добавить страницу постами
+5. Сделать систему добавления постов
+6. Добавить страницу с 3D графикой
+7. Изменение тем
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Nuxt [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

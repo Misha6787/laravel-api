@@ -66,12 +66,9 @@
       </form>
     </div>
   </div>
-
-<!--  <button @click="test">Test</button>-->
 </template>
 
 <script setup>
-
 import axios from "axios";
 const config = useRuntimeConfig();
 
@@ -80,10 +77,6 @@ let inputPassword = ref();
 
 const router = useRouter()
 const userStore = useUserStore();
-
-// function test () {
-//   axios.get('http://laravel-nuxt/api/v1/user').then(res => console.log(res));
-// }
 
 async function submitHandler () {
   let data = {
@@ -133,44 +126,7 @@ async function submitHandler () {
   //   errors.value = e.errors
   // }
 
-  // console.log(document.cookie);
-
 }
-
-// const submitHandler2 = async () => {
-//   let data = JSON.stringify({
-//     'email': inputEmail.value,
-//     'password': inputPassword.value
-//   });
-
-//   axios.post(config.API_BASE_URL + 'login',
-//       data,
-//       {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Accept': 'application/json',
-//         }
-//       }
-//   )
-//       .then(responce => {
-//         useNuxtApp().$toast.success(
-//             'Пользователь авторизирован', {
-//               autoClose: 2000,
-//             });
-//       })
-//       .catch(responce => {
-//         useNuxtApp().$toast.error(
-//             'Неверено веденны данные', {
-//               autoClose: 2000,
-//             });
-//       });
-//
-// }
-
-
-// export default {
-//   name: "login"
-// }
 </script>
 
 <style scoped>

@@ -83,11 +83,7 @@
 
 <script setup>
 
-// import { toast } from 'vue3-toastify';
-// import 'vue3-toastify/dist/index.css';
-
 import axios from "axios";
-import {useWindowSize} from "@vueuse/core";
 const config = useRuntimeConfig();
 const userStore = useUserStore();
 const router = useRouter();
@@ -112,7 +108,6 @@ const submitHandler = async () => {
                     autoClose: 2000,
                   }
               );
-              // console.log(userStore.currentUser);
               router.push('/');
             })
             .catch(mes => {
