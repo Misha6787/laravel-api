@@ -27,6 +27,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('invoices/bulk', [\App\Http\Controllers\Api\V1\InvoiceController::class, 'bulkStore']);
     Route::post('register', [\App\Http\Controllers\Api\V1\Auth\RegisterController::class, 'register']);
     Route::post('login', [\App\Http\Controllers\Api\V1\Auth\LoginController::class, 'login']);
+});
 
-    Route::get('user', [\App\Http\Controllers\Api\V1\Auth\AuthController::class, 'user'])->middleware('auth:sanctum');
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('user', [\App\Http\Controllers\Api\V1\Auth\AuthController::class, 'user']);
+
+    Route::post('logout', [\App\Http\Controllers\Api\V1\Auth\LogoutController::class, 'logout']);
 });

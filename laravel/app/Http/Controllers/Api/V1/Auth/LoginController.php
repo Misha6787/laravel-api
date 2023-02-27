@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         return response()->json([
             'token_type' => 'Bearer',
-            'token' => $token->accessToken,
+            'token' => $token->plainTextToken,
             'user' => $auth,
         ], 200);
 

@@ -87,45 +87,42 @@
 // import 'vue3-toastify/dist/index.css';
 
 import axios from "axios";
+import {useWindowSize} from "@vueuse/core";
 const config = useRuntimeConfig();
+const userStore = useUserStore();
+const router = useRouter();
 
 let inputName = ref();
 let inputEmail = ref();
 let inputPassword = ref();
-
 const submitHandler = async () => {
 
-  // let data = JSON.stringify({
-  //   'name': inputName.value,
-  //   'email': inputEmail.value,
-  //   'password': inputPassword.value
-  // });
-  //
-  // await axios.post(config.API_BASE_URL + 'register',
-  //   data,
-  //   {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json',
-  //   }
-  // })
-  //   .then(responce => {
-  //     console.log(responce)
-  //     useNuxtApp().$toast.success(
-  //       'Регистрация прошла успешно!',
-  //         {
-  //           autoClose: 2000,
-  //         }
-  //     );
-  //   })
-  //   .catch(responce => {
-  //     useNuxtApp().$toast.error(
-  //         'Введите корректные данные!',
-  //         {
-  //           autoClose: 2000,
-  //         }
-  //     );
-  //   })
+  let data = {
+    name: inputName.value,
+    email: inputEmail.value,
+    password: inputPassword.value
+  };
+
+  axios.get(config.public.base + 'sanctum/csrf-cookie', {withCredentials: true})
+      .then(res => {
+        userStore.actionUserRegister(data)
+            .then(mes => {
+              useNuxtApp().$toast.success(
+                  mes, {
+                    autoClose: 2000,
+                  }
+              );
+              // console.log(userStore.currentUser);
+              router.push('/');
+            })
+            .catch(mes => {
+              useNuxtApp().$toast.error(
+                  mes, {
+                    autoClose: 2000,
+                  }
+              );
+            })
+      });
 }
 </script>
 

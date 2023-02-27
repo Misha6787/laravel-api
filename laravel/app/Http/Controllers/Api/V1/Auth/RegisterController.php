@@ -14,13 +14,23 @@ class RegisterController extends Controller
 {
     public function register(RegisterFormRequest $request)
     {
-        $user = new RegisterResource(User::create($request->all()));
+//        $user = new RegisterResource();
+
+
+        $user = User::create($request->all());
 
         Auth::login($user);
 
+        $auth = Auth::user();
+
+        $token = $auth->createToken(config('app.name'));
+
+//            $token->token->save();
+
         return response()->json([
-            'message' => 'Поздравляем с регистрацией!',
-            'user' => $user
+            'token_type' => 'Bearer',
+            'token' => $token->plainTextToken,
+            'user' => $auth,
         ], 200);
     }
     public function users()

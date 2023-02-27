@@ -5,12 +5,14 @@
       <li class="menu__item"><NuxtLink to="/about">О нас</NuxtLink></li>
       <li class="menu__item"><NuxtLink to="/posts/">Посты</NuxtLink></li>
 
-      <li v-if="!userStore.currentUser.user" class="menu__item"><NuxtLink to="/user/login">Login</NuxtLink></li>
-      <li v-if="!userStore.currentUser.user" class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
+      <li v-if="!userStore.currentUser" class="menu__item"><NuxtLink to="/user/login">Login</NuxtLink></li>
+      <li v-if="!userStore.currentUser" class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
 
-      <li v-if="userStore.currentUser.user">{{ userStore.currentUser.user.name }}</li>
+      <li v-if="userStore.currentUser" class="dark:text-gray-50 text-xl text-gray-50 p-4 ml-4">{{ userStore.currentUser.user.name }}</li>
 
-      <li v-if="userStore.currentUser.user"><button>Выйти</button></li>
+      <li v-if="userStore.currentUser">
+        <button class="menu__item rounded bg-emerald-400 p-2 hover:bg-red-600 transition-all" @click="logout">Выйти</button>
+      </li>
 
       <span class="block p-4" @click="toggleColorTheme()">
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -32,16 +34,33 @@
 </template>
 
 <script setup>
+  import axios from "axios";
+  const config = useRuntimeConfig();
+  const router = useRouter();
+
   const userStore = useUserStore();
 
-  // console.log(userStore.currentUser)
-  // let currentUser = ref({})
-  //
-  // onBeforeMount(() => {
-  //   currentUser.value = userStore.currentUser;
-  //
-  //   console.log('done', currentUser.value)
-  // })
+  const logout = () => {
+    axios.get(config.public.base + 'sanctum/csrf-cookie', {withCredentials: true})
+      .then(res => {
+        userStore.actionUserLogout()
+          .then(mes => {
+            useNuxtApp().$toast.success(
+                mes, {
+                  autoClose: 2000,
+                }
+            );
+            router.push('/');
+          })
+          .catch(mes => {
+            useNuxtApp().$toast.error(
+                mes, {
+                  autoClose: 2000,
+                }
+            );
+          })
+      })
+  };
 
   const toggleColorTheme = () => {
     useColorMode().preference = useColorMode().preference === 'light' ? 'dark' : 'light';

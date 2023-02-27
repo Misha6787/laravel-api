@@ -106,31 +106,14 @@ async function submitHandler () {
               );
               router.push('/');
             })
+            .catch(mes => {
+              useNuxtApp().$toast.error(
+                  mes, {
+                    autoClose: 2000,
+                  }
+              );
+            })
       });
-
-  // axios.post(config.public.baseApi + 'login',
-  //     data,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept': 'application/json',
-  //       }
-  //     }
-  // )
-  //     .then(responce => {
-  //       console.log(responce)
-  //       useNuxtApp().$toast.success(
-  //           'Пользователь авторизирован', {
-  //             autoClose: 2000,
-  //           });
-  //     })
-  //     .catch(responce => {
-  //       console.log(responce)
-  //       useNuxtApp().$toast.error(
-  //           'Неверено веденны данные', {
-  //             autoClose: 2000,
-  //           });
-  //     });
 
 
   // try {
@@ -154,35 +137,35 @@ async function submitHandler () {
 
 }
 
-const submitHandler2 = async () => {
-  let data = JSON.stringify({
-    'email': inputEmail.value,
-    'password': inputPassword.value
-  });
+// const submitHandler2 = async () => {
+//   let data = JSON.stringify({
+//     'email': inputEmail.value,
+//     'password': inputPassword.value
+//   });
 
-  axios.post(config.API_BASE_URL + 'login',
-      data,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        }
-      }
-  )
-      .then(responce => {
-        useNuxtApp().$toast.success(
-            'Пользователь авторизирован', {
-              autoClose: 2000,
-            });
-      })
-      .catch(responce => {
-        useNuxtApp().$toast.error(
-            'Неверено веденны данные', {
-              autoClose: 2000,
-            });
-      });
-
-}
+//   axios.post(config.API_BASE_URL + 'login',
+//       data,
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json',
+//         }
+//       }
+//   )
+//       .then(responce => {
+//         useNuxtApp().$toast.success(
+//             'Пользователь авторизирован', {
+//               autoClose: 2000,
+//             });
+//       })
+//       .catch(responce => {
+//         useNuxtApp().$toast.error(
+//             'Неверено веденны данные', {
+//               autoClose: 2000,
+//             });
+//       });
+//
+// }
 
 
 // export default {
