@@ -118,6 +118,15 @@
       <path value="$PROJECT_DIR$/laravel/vendor/league/commonmark" />
       <path value="$PROJECT_DIR$/laravel/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/laravel/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/laravel/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/laravel/vendor/arrilot/laravel-widgets" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/laravel/vendor/tcg/voyager" />
+      <path value="$PROJECT_DIR$/laravel/vendor/larapack/doctrine-support" />
+      <path value="$PROJECT_DIR$/laravel/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

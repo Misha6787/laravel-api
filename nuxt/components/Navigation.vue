@@ -9,7 +9,14 @@
       <li v-if="!userStore.currentUser" class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
 
       <li v-if="userStore.currentUser" class="dark:text-gray-50 text-xl text-gray-50 p-4 ml-4">
-        <NuxtLink to="/user/accaunt">{{ userStore.currentUser.user.name }}</NuxtLink>
+        <NuxtLink to="/user/accaunt">
+          <div class="flex items-center">
+            <img :src="config.public.baseStorage + userStore.currentUser.user.avatar"
+                 class="w-10 block"
+                 alt="avatar">
+            <span class="ml-2 block">{{ userStore.currentUser.user.name }}</span>
+          </div>
+        </NuxtLink>
       </li>
 
       <li v-if="userStore.currentUser">

@@ -115,6 +115,15 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/arrilot/laravel-widgets" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/tcg/voyager" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/larapack/doctrine-support" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/intervention/image" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
