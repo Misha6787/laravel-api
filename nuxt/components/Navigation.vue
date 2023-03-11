@@ -9,7 +9,7 @@
       <li v-if="!userStore.currentUser" class="menu__item"><NuxtLink to="/user/register">Register</NuxtLink></li>
 
       <li v-if="userStore.currentUser" class="dark:text-gray-50 text-xl text-gray-50 p-4 ml-4">
-        <NuxtLink to="/user/accaunt">
+        <NuxtLink to="/user/account">
           <div class="flex items-center">
             <img :src="config.public.baseStorage + userStore.currentUser.user.avatar"
                  class="w-10 block"
