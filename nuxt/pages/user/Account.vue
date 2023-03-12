@@ -2,31 +2,45 @@
   <section v-if="userStore.currentUser">
     <h1>Welcome home: <i>{{ userStore.currentUser.user.name }}</i></h1>
     <div class="flex justify-around py-6">
-      <img :src="config.public.baseStorage + userStore.currentUser.user.avatar"
-           style="max-width: 256px"
-           alt="avatar">
+<!--      <img :src="config.public.baseStorage + userStore.currentUser.user.avatar"-->
+<!--           style="max-width: 256px"-->
+<!--           alt="avatar">-->
 
-
-      <input type="file" @change='upload_avatar' name="avatar">
-
-      <img :src="avatar.value" class="avatar" v-bind:style="styleObject" alt="avatar2"/>
+      <div class="avatar-editeble relative avatar-wrapper overflow-hidden w-56 h-56 rounded-full">
+        <img :src="avatar" class="w-full h-full" alt="avatar">
+        <label
+            class="absolute transition-all flex items-center justify-center h-2/6 w-full bg-gray-800 bg-opacity-10 backdrop-blur-sm px-8 text-gray-300 text-center text-base"
+            :class="editAcc ? 'avatar-input' : '' "
+            for="avatar-input"
+        >
+          Изменить изображение
+        </label>
+        <input
+            id="avatar-input"
+            type="file"
+            @change="upload_avatar"
+            name="avatar"
+            hidden
+        />
+      </div>
 
       <ul class="flex flex-col">
         <li class="acc__item">Имя:
-          <span>{{ userStore.currentUser.user.name }}</span>
+          <span :contenteditable="editAcc">{{ userStore.currentUser.user.name }}</span>
         </li>
         <li class="acc__item">Почта
-          <span>{{ userStore.currentUser.user.email }}</span>
+          <span :contenteditable="editAcc">{{ userStore.currentUser.user.email }}</span>
         </li>
-        <li class="acc__item">Изменить пароль:
+        <li class="acc__item" v-if="editAcc">Изменить пароль:
           <input type="text">
         </li>
-        <li class="acc__item">Подтвердить пароль:
+        <li class="acc__item" v-if="editAcc">Подтвердить пароль:
           <input type="text">
         </li>
       </ul>
     </div>
-    avatar - {{avatar.value}}
+
+    <!-- buttons edit and save acc -->
     <button
         v-if="!editAcc"
         class="acc__btn"
@@ -34,7 +48,6 @@
     >
       Изменить аккаунт
     </button>
-
     <button
         v-if="editAcc"
         class="acc__btn"
@@ -59,20 +72,14 @@
     middleware: auth
   })
 
-  let avatar = ref('');
+  let avatar = ref();
 
-  let styleObject = {
-    width: '160px',
-    height: '160px'
-  }
-
-  onBeforeMount(() => {
+  onMounted(() => {
     avatar.value = config.public.baseStorage + userStore.currentUser.user.avatar;
   })
 
-  console.log(avatar.value)
-
-  const upload_avatar = (e) =>{
+  const upload_avatar = (e) => {
+    console.log('tertr')
     let file = e.target.files[0];
     let reader = new FileReader();
 
@@ -83,18 +90,14 @@
       reader.readAsDataURL(file);
     }
   };
-  // const get_avatar = () => {
-  //
-  // }
-  // get_avatar()
-
-  // console.log(avatar.value.length)
-  //avatar.value = avatar.value
-  // if (avatar.value.length > 100) {
-  //   avatar = avatar.value
-  // }
 </script>
 
 <style scoped>
+  .avatar-input {
+    bottom: -33.3%;
+  }
 
+  .avatar-editeble:hover .avatar-input {
+    bottom: 0;
+  }
 </style>
