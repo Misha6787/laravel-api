@@ -45,8 +45,22 @@ export default defineNuxtConfig({
 
     // Обьявление плагинов
     plugins: [
-        '~/plugins/vue3-toastify'
+        '~/plugins/vue3-toastify',
     ],
+    // Добавление стилей
+    css: [
+        'vuetify/lib/styles/main.sass',
+        '@mdi/font/css/materialdesignicons.min.css',
+    ],
+    // Общая конфигурация сборки
+    build: {
+        transpile: ['vuetify'],
+    },
+    vite: {
+        define: {
+            'process.env.DEBUG': false,
+        },
+    },
 
     // Конфиги тем в @nuxtjs/color-mode
     colorMode: {
