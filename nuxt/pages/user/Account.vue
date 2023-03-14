@@ -87,7 +87,6 @@
   })
 
   const upload_avatar = (e) => {
-    console.log('tertr')
     let file = e.target.files[0];
     let reader = new FileReader();
 
