@@ -33,4 +33,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'm
     Route::get('user', [\App\Http\Controllers\Api\V1\Auth\AuthController::class, 'user']);
 
     Route::post('logout', [\App\Http\Controllers\Api\V1\Auth\LogoutController::class, 'logout']);
+
+    Route::post('edituser', [\App\Http\Controllers\Api\V1\User\EditUserController::class, 'editUser']);
 });

@@ -4,6 +4,9 @@ import * as process from "process";
 
 export default defineNuxtConfig({
     // webpack: undefined,
+
+    target: 'static',
+
     // Конфиги мета данных в head
     app: {
         head: {

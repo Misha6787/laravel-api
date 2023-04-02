@@ -2,8 +2,8 @@
   <section v-if="userStore.currentUser">
       <h1>Welcome home: <i>{{ userStore.currentUser.user.name }}</i></h1>
       <div class="flex py-6">
-        <div class="avatar-editeble ml-auto relative avatar-wrapper overflow-hidden w-56 h-56 rounded-full mr-8">
-          <img :src="avatar" class="w-full h-full" alt="avatar">
+        <div class="avatar-editeble ml-auto relative avatar-wrapper overflow-hidden w-46 h-46 rounded-full mr-8">
+          <img :src="avatar" class="w-full h-full object-contain" alt="avatar">
           <label
               class="absolute transition-all flex items-center justify-center h-2/6 w-full bg-gray-800 bg-opacity-10 backdrop-blur-sm px-8 text-gray-300 text-center text-base"
               :class="editAcc ? 'avatar-input' : '' "
@@ -20,14 +20,14 @@
           />
         </div>
 
-        <ul class="flex flex-col w-50 justify-center">
+        <ul class="flex flex-col w-2/3 justify-center">
           <li class="acc__item">Логин:
-            <span v-if="!editAcc">{{ formData.username }}</span>
+            <span v-if="!editAcc" class="pl-2">{{ data.username }}</span>
             <input
                 type="text"
                 id="username"
                 name="username"
-                v-model="formData.username"
+                v-model="data.username"
                 v-if="editAcc"
                 class="border-solid border-b-2 pl-2"
                 :class="{
@@ -45,12 +45,12 @@
             ></v-icon>
           </li>
           <li class="acc__item">Почта
-            <span v-if="!editAcc">{{ formData.email }}</span>
+            <span v-if="!editAcc" class="pl-2">{{ data.email }}</span>
             <input
                 type="email"
                 id="email"
                 name="email"
-                v-model="formData.email"
+                v-model="data.email"
                 v-if="editAcc"
                 class="border-solid border-b-2 pl-2"
                 :class="{
@@ -67,12 +67,12 @@
                 icon="mdi-pencil"
             ></v-icon>
           </li>
-          <li class="acc__item" v-if="editAcc">Старый пароль:
+          <li class="acc__item" :style="{opacity: editAcc ? 1 : 0}">Старый пароль:
             <input
                 type="password"
                 id="oldPassword"
                 name="oldPassword"
-                v-model="formData.oldPassword"
+                v-model="data.oldPassword"
                 v-if="editAcc"
                 class="border-solid border-b-2 pl-2"
                 :class="{
@@ -89,12 +89,12 @@
                 icon="mdi-pencil"
             ></v-icon>
           </li>
-          <li class="acc__item" v-if="editAcc">Новый пароль:
+          <li class="acc__item" :style="{opacity: editAcc ? 1 : 0}">Новый пароль:
             <input
                 type="password"
                 id="newPassword"
                 name="newPassword"
-                v-model="formData.newPassword"
+                v-model="data.newPassword"
                 v-if="editAcc"
                 class="border-solid border-b-2 pl-2"
                 :class="{
@@ -115,13 +115,6 @@
       </div>
 
       <!-- Кнопка сохранения и изменения контента -->
-      <!--    <button-->
-      <!--        v-if="!editAcc"-->
-      <!--        class="acc__btn"-->
-      <!--        @click="editAcc = true"-->
-      <!--    >-->
-      <!--      Изменить аккаунт-->
-      <!--    </button>-->
       <div class="text-center">
         <v-btn
             prepend-icon="mdi-account-edit"
@@ -153,10 +146,12 @@
   import auth from "~/middleware/Auth";
   import { required, email, sameAs, minLength, requiredIf, helpers } from '@vuelidate/validators';
   import { useVuelidate } from '@vuelidate/core';
+  import axios from "axios";
 
   const config = useRuntimeConfig();
   const editAcc = ref(false);
   const userStore = useUserStore();
+  const router = useRouter();
 
   // Аунтефикация пользователя через модуль auth
   definePageMeta({
@@ -172,7 +167,7 @@
   })
 
   // Обьект с данными для форм и валидаций
-  const formData = reactive({
+  const data = reactive({
     username: userStore.currentUser.user.name,
     email: userStore.currentUser.user.email,
     oldPassword: '',
@@ -190,17 +185,17 @@
       },
       oldPassword: {
         minLength: helpers.withMessage('Минимум 6 символов', minLength(6)),
-        requiredIfRef: helpers.withMessage('Впишите новый пароль', requiredIf(formData.newPassword !== ''))
+        requiredIfRef: helpers.withMessage('Впишите новый пароль', requiredIf(data.newPassword !== ''))
       },
       newPassword: {
         minLength: helpers.withMessage('Минимум 6 символов', minLength(6)),
-        requiredIfRef: helpers.withMessage('Впишите текущий пароль', requiredIf(formData.oldPassword !== ''))
+        requiredIfRef: helpers.withMessage('Впишите текущий пароль', requiredIf(data.oldPassword !== ''))
       },
     };
   });
 
   // Инициализация валидаций
-  const v$ = useVuelidate(rules, formData);
+  const v$ = useVuelidate(rules, data);
 
   // Отправка формы и ее валидация
   const submitForm = () => {
@@ -215,12 +210,27 @@
       return;
     }
 
-    useNuxtApp().$toast.success(
-        'Профиль успешно изменен', {
-          autoClose: 2000,
-        }
-    );
-    editAcc.value = false;
+    axios.get(config.public.base + 'sanctum/csrf-cookie', {withCredentials: true})
+        .then(res => {
+          userStore.actionUserEdit(data)
+              .then(mes => {
+                useNuxtApp().$toast.success(
+                    'Профиль успешно изменен', {
+                      autoClose: 2000,
+                    }
+                );
+                editAcc.value = false;
+              })
+              .catch(mes => {
+                console.log(mes);
+                // useNuxtApp().$toast.error(
+                //     'Ошибка, такого пользователя не существует', {
+                //       autoClose: 2000,
+                //     }
+                // );
+                // router.push('/user/register');
+              })
+        });
   };
 
   // Загрузка фото со стороны клиента и создание превьюшки

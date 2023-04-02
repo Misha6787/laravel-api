@@ -4,19 +4,19 @@ import * as process from "process";
 
 const useUserStore = defineStore('user', {
 
-    state(){
+    state() {
         return {
             currentUser: useCookie('user') != null ? useCookie('user') : null,
             users: [],
         }
     },
-    getters:{
+    getters: {
         getCurrentUser(state){
             return state.currentUser;
         },
     },
-    actions:{
-        async actionUserLogin(data){
+    actions: {
+        async actionUserLogin(data) {
             return await new Promise((resolve, reject) => {
                 axios
                     .post(useRuntimeConfig().public.baseApi + 'login', data)
@@ -41,7 +41,7 @@ const useUserStore = defineStore('user', {
                         });
             });
         },
-        async actionUserRegister(data){
+        async actionUserRegister(data) {
             return await new Promise((resolve, reject) => {
                 axios
                     .post(useRuntimeConfig().public.baseApi + 'register', data)
@@ -66,7 +66,7 @@ const useUserStore = defineStore('user', {
                     });
             });
         },
-        async actionUserLogout(){
+        async actionUserLogout() {
             return await new Promise((resolve, reject) => {
                 axios
                     .post(useRuntimeConfig().public.baseApi + 'logout', {}, {
@@ -88,6 +88,29 @@ const useUserStore = defineStore('user', {
                     });
             });
         },
+
+        async actionUserEdit(data) {
+            return await new Promise((resolve, reject) => {
+                axios
+                    .post(useRuntimeConfig().public.baseApi + 'edituser', data, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': `${this.getCurrentUser.token_type} ${this.getCurrentUser.token}`
+                        }
+                    })
+                    .then((res) => {
+                        console.log('success', res)
+                        resolve('success');
+                    })
+                    .catch(error => {
+                        // if (error.response.status === 401) {
+                        //     this.actionUserLogout();
+                        // }
+                        console.log('error', error)
+                        reject('error');
+                    });
+            });
+        }
         // async actionGetUsers(){
         //     return await new Promise(() => {
         //         axios
@@ -109,4 +132,4 @@ const useUserStore = defineStore('user', {
     },
 
 })
-export {useUserStore};
+export { useUserStore };
